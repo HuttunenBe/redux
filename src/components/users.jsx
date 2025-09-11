@@ -1,17 +1,26 @@
-import { useSelector } from "react-redux"; // This hook lets us read data from the Redux store.
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../hooks/hooks";
+import { fetchUsers } from "../store/userSlice";
 
-
-// Functional component called `Products`.
 const Users = () => {
-    // Using the `useSelector` hook to access the Redux store.
-    // Here, we are getting the `products` array from the state.
-    // The state has a `products` slice, and inside it, there's a `products` property.
-    const users = useSelector((state) => state.users.ursers);
+  const users = useSelector((state) => state.users.users);
+  const dispatch = useAppDispatch();
 
-    console.log(users);
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
-    return <div>Products will be here</div>;
+  return (
+    <div>
+      <p>{users.length}</p>
+      {users.map((user) => (
+        <div key={user.id}>
+          <h3>{user.name}</h3>
+        </div>
+      ))}
+    </div>
+  );
 };
 
-// Exporting the `Products` component so it can be used in other parts of the app.
 export default Users;

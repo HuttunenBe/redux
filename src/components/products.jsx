@@ -1,38 +1,49 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts } from '../store/productSlice';
-import { addToCart } from '../store/cartSlice'; // make sure the path is correct
-import { Card, CardContent, Typography, Button } from '@mui/material';
+import { Card, CardContent, Grid, Typography, Button } from "@mui/material";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../hooks/hooks";
+import { fetchProducts } from "../store/productSlice";
+import { addToCart } from "../store/cartSlice";
+
+
 
 const Products = () => {
-  const dispatch = useDispatch();
-  const { products, status } = useSelector(state => state.products);
+  const products = useSelector((state) => state.products.products);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchProducts());
-    }
-  }, [status, dispatch]);
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   return (
     <div>
-      <p>Total Products: {products.length}</p>
-      {products.map(product => (
-        <Card key={product.id} style={{ margin: '10px', padding: '10px' }}>
-          <CardContent>
-            <Typography variant="h6">{product.title}</Typography>
-            <Typography variant="body1">${product.price}</Typography>
-          </CardContent>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => dispatch(addToCart(product))}
-            style={{ margin: '10px' }}
-          >
-            Add to cart
-          </Button>
-        </Card>
-      ))}
+      <Typography variant="h5" gutterBottom>
+        Products ({products.length})
+      </Typography>
+      <Grid container spacing={2}>
+        {products.map((product) => (
+          <Grid item key={product.id}>
+            <Card>
+              <img
+                src={product.image}
+                alt={product.title}
+                style={{ objectFit: "cover", maxHeight: "100px", width: "100%" }}
+              />
+              <CardContent>
+                <Typography variant="h6">{product.title}</Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => dispatch(addToCart(product))}
+                  style={{ marginTop: "10px" }}
+                >
+                  Add to cart
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 };

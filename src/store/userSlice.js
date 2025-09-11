@@ -1,23 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
-// Imports a helper from Redux Toolkit to easily create a slice of state with actions and reducers.
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
-    users: [], 
-    // Our initial data: an empty array of products.
-}
+  // This one creates the second part of the state eg: state.products.products
+  users: [],
+};
 
-const api = "https://jsonplaceholder.typicode.com"
+const api = "https://jsonplaceholder.typicode.com/users";
 
-const userSlice = createSlice({
-    name: "user", 
-    // Name of this slice. Used to identify it in Redux.
-    initialState, 
-    // Sets the starting data for this slice.
-    reducers: {}, 
-    // We can add functions here to change the state (like addProduct, removeProduct).
-    extraReducers: (builder) => { 
-        // This is where we handle actions from outside this slice (like async API calls).
-    },
+export const fetchUsers = createAsyncThunk("users/users", async () => {
+  const response = await axios.get(api);
+  return response.data;
 });
 
-export default userSlice.reducer; 
+const userSlice = createSlice({
+  name: "users",
+  initialState,
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(fetchUsers.fulfilled, (state, action) => {
+      state.users = action.payload;
+    });
+  },
+});
+
+export default userSlice.reducer;
