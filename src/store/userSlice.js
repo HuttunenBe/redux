@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  // This one creates the second part of the state eg: state.products.products
   users: [],
 };
 

@@ -1,6 +1,5 @@
-import { NavLink } from 'react-router-dom';
-import UserPage from '../pages/UserPage';
-
+import { NavLink } from "react-router-dom";
+import UserPage from "../pages/UserPage";
 
 const Header = () => {
   return (
@@ -12,7 +11,7 @@ const Header = () => {
         <li>
           <NavLink to="/ProductsPage">Products</NavLink>
         </li>
-           <li>
+        <li>
           <NavLink to="/UserPage">Users</NavLink>
         </li>
       </ul>

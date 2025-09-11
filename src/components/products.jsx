@@ -5,8 +5,6 @@ import { useAppDispatch } from "../hooks/hooks";
 import { fetchProducts } from "../store/productSlice";
 import { addToCart } from "../store/cartSlice";
 
-
-
 const Products = () => {
   const products = useSelector((state) => state.products.products);
   const dispatch = useAppDispatch();
@@ -27,7 +25,11 @@ const Products = () => {
               <img
                 src={product.image}
                 alt={product.title}
-                style={{ objectFit: "cover", maxHeight: "100px", width: "100%" }}
+                style={{
+                  objectFit: "cover",
+                  maxHeight: "100px",
+                  width: "100%",
+                }}
               />
               <CardContent>
                 <Typography variant="h6">{product.title}</Typography>
