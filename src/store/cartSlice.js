@@ -1,4 +1,4 @@
-/*import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   cart: []
@@ -6,7 +6,7 @@ const initialState = {
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: { cart: [] },
+  initialState,
   reducers: {
     addToCart: (state, action) => {
       state.cart.push(action.payload);
@@ -15,17 +15,13 @@ const cartSlice = createSlice({
       state.cart = [];
     },
     removeFromCart: (state, action) => {
-        state.cart = state.cart.filter(item => item.id === action.payload.id)
+      state.cart = state.cart.filter(item => item.id !== action.payload.id);
     }
   },
 });
 
+// ✅ Correctly export all actions
+export const { addToCart, clearCart, removeFromCart } = cartSlice.actions;
 
-export const { addtocart } = cartSlice.actions;
-export const { clearCart,removeFromCart } = cartSlice.actions;
+// ✅ Export reducer
 export default cartSlice.reducer;
-
-// function 
-// button 
-
-*/

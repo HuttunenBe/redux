@@ -1,10 +1,12 @@
-import users from ''./
+import Users from '../components/users';
 
 const UserPage = () => {
-    return <p>Hello User</p>
-}
-return (
-    <Users />
-) 
+  return (
+    <div>
+      <p>Hello User</p>
+      <Users />
+    </div>
+  );
+};
 
 export default UserPage;

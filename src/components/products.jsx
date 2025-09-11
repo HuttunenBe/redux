@@ -1,4 +1,4 @@
-/*import { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../store/productSlice';
 import { addToCart } from '../store/cartSlice'; // make sure the path is correct
@@ -38,4 +38,3 @@ const Products = () => {
 };
 
 export default Products;
-*/

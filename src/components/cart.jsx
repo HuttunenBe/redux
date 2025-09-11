@@ -1,35 +1,28 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts } from '../store/productSlice';
-import { addToCart } from '../store/cartSlice'; // make sure the path is correct
+import { useSelector, useDispatch } from 'react-redux';
 import { Card, CardContent, Typography, Button } from '@mui/material';
+import { removeFromCart } from '../store/cartSlice'; // assuming you have this action
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { cart, status } = useSelector(state => state.products);
+const cart = useSelector(state => state.cart.cart);
 
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchProducts());
-    }
-  }, [status, dispatch]);
 
   return (
     <div>
-      <p>Cart: {cart.length}</p>
-      {products.map(product => (
-        <Card key={product.id} style={{ margin: '10px', padding: '10px' }}>
+      <p>Cart: {cart.length} items</p>
+      {cart.map(item => (
+        <Card key={item.id} style={{ margin: '10px', padding: '10px' }}>
           <CardContent>
-            <Typography variant="h6">{product.title}</Typography>
-            <Typography variant="body1">${product.price}</Typography>
+            <Typography variant="h6">{item.title}</Typography>
+            <Typography variant="body1">${item.price}</Typography>
           </CardContent>
           <Button
             variant="contained"
-            color="primary"
-            onClick={() => dispatch(addToCart(product))}
+            color="secondary"
+            onClick={() => dispatch(removeFromCart(item))}
             style={{ margin: '10px' }}
           >
-            Add to cart
+            Remove
           </Button>
         </Card>
       ))}
@@ -37,4 +30,4 @@ const Cart = () => {
   );
 };
 
-export default Products;
+export default Cart;
